@@ -13,6 +13,5 @@
 - Maven: 3.8.1
 - Spring Boot: 2,7,12
 - Library: poi(version 3.9)
-- JSP
 
 
