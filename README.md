@@ -10,7 +10,6 @@
 
 ## 테스트 환경
 - Java : 1.8
-- Tomcat: 8.5.38
 - Maven: 3.8.1
 - Spring Boot: 2,7,12
 - Library: poi(version 3.9)
