@@ -23,7 +23,6 @@ public class ExcelSampleController {
     @GetMapping("/page/sample")
     public String excelSamplePage(Model model) {
 
-        System.out.println("접근 테스트");
         return "sample/samplePage";
     }
 
@@ -45,7 +44,56 @@ public class ExcelSampleController {
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();
-        }    }
+        }
+    }
 
+    @GetMapping("/file/validationSample")
+    public ResponseEntity<byte[]> downloadExcelSampleFileWithValidation() throws IOException {
+
+        Workbook workbook = excelSampleService.createExcelWithValidation();
+        System.out.println("접근 테스트");
+
+
+        try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+            workbook.write(out);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            headers.setContentDispositionFormData("attachment", "sample.xlsx");
+
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(out.toByteArray());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/file/validationAndVbaExcel")
+    public ResponseEntity<byte[]> downloadExcelSampleWithValidationAndVbaExcel() throws IOException {
+
+
+        Workbook workbook = excelSampleService.createExcelWithValidationAndVbaExcelFile();
+        System.out.println("접근 테스트2");
+
+
+        try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+            workbook.write(out);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            headers.setContentDispositionFormData("attachment", "sample.xlsm");
+
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(out.toByteArray());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+
+
+    }
 
 }
